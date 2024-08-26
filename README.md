@@ -1,4 +1,4 @@
-# Diabetes Predictor
+# Diabetes Predictor -
 
 This project is a machine learning-based web application that predicts the likelihood of a person having diabetes based on several health parameters. The prediction model is built using Python and integrated into a web application using Streamlit.
 
