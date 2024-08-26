@@ -28,36 +28,41 @@ st.title("Diabetes Prediction Using Machine Learning")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    Pregnancies = st.text_input("Number of Pregnancies")
+    Pregnancies = st.text_input("Number of Pregnancies", "0")
 with col2:
-    Glucose = st.text_input("Glucose Level")
+    Glucose = st.text_input("Glucose Level", "0")
 with col3:
-    BloodPressure = st.text_input("BloodPressure Value")
+    BloodPressure = st.text_input("Blood Pressure Value", "0")
 with col1:
-    SkinThickness = st.text_input("SkinThickness Value")
+    SkinThickness = st.text_input("Skin Thickness Value", "0")
 with col2:
-    Insulin = st.text_input("Insulin Value")
+    Insulin = st.text_input("Insulin Value", "0")
 with col3:
-    BMI = st.text_input("BMI Value")
+    BMI = st.text_input("BMI Value", "0")
 with col1:
-    DiabetesPedigreeFunction = st.text_input("DiabetesPedigreeFunction Value")
+    DiabetesPedigreeFunction = st.text_input("Diabetes Pedigree Function Value", "0.0")
 with col2:
-    Age = st.text_input("Age")
+    Age = st.text_input("Age", "0")
 
 # Predict and display results
 diabetes_result = ""
 if st.button("Diabetes Test Result"):
     try:
         # Convert inputs to float
-        BMI_val = float(BMI)
-        Insulin_val = float(Insulin)
+        Pregnancies = float(Pregnancies)
         Glucose_val = float(Glucose)
+        BloodPressure = float(BloodPressure)
+        SkinThickness = float(SkinThickness)
+        Insulin_val = float(Insulin)
+        BMI_val = float(BMI)
+        DiabetesPedigreeFunction = float(DiabetesPedigreeFunction)
+        Age = float(Age)
 
         # Set BMI category
         if BMI_val <= 18.5:
             NewBMI_Underweight = 1
         elif 18.5 < BMI_val <= 24.9:
-            pass
+            pass  # Normal BMI
         elif 24.9 < BMI_val <= 29.9:
             NewBMI_Overweight = 1
         elif 29.9 < BMI_val <= 34.9:
@@ -82,14 +87,15 @@ if st.button("Diabetes Test Result"):
             NewGlucose_Secret = 1
 
         # Prepare user input for prediction
-        user_input = [float(Pregnancies), Glucose_val, BloodPressure, SkinThickness, Insulin_val,
-                      BMI_val, DiabetesPedigreeFunction, float(Age), NewBMI_Underweight,
-                      NewBMI_Overweight, NewBMI_Obesity_1, NewBMI_Obesity_2, NewBMI_Obesity_3,
-                      NewInsulinScore_Normal, NewGlucose_Low, NewGlucose_Normal,
-                      NewGlucose_Overweight, NewGlucose_Secret]
+        user_input = [
+            Pregnancies, Glucose_val, BloodPressure, SkinThickness, Insulin_val,
+            BMI_val, DiabetesPedigreeFunction, Age, NewBMI_Underweight,
+            NewBMI_Overweight, NewBMI_Obesity_1, NewBMI_Obesity_2, NewBMI_Obesity_3,
+            NewInsulinScore_Normal, NewGlucose_Low, NewGlucose_Normal,
+            NewGlucose_Overweight, NewGlucose_Secret
+        ]
 
         # Make prediction
-        # user_input = [0.0, 90, 60, 15, 70, 22.0, 0.2, 25]
         prediction = diabetes_model.predict([user_input])
         if prediction[0] == 1:
             diabetes_result = "The person has diabetes."
